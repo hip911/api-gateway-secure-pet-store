@@ -23,6 +23,8 @@ import com.amazonaws.services.cognitoidentity.model.GetCredentialsForIdentityRes
 import com.amazonaws.services.cognitoidentity.model.GetOpenIdTokenForDeveloperIdentityRequest;
 import com.amazonaws.services.cognitoidentity.model.GetOpenIdTokenForDeveloperIdentityResult;
 
+import com.amazonaws.regions.Region;
+
 /**
  * Cognito implementation of the CredentialsProvider interface. The configuration for the Cognito credentials provider
  * is in the CognitoConfiguration class in the com.amazonaws.apigatewaydemo.configuration package
@@ -30,7 +32,7 @@ import com.amazonaws.services.cognitoidentity.model.GetOpenIdTokenForDeveloperId
 public class CognitoCredentialsProvider implements CredentialsProvider {
     private static CognitoCredentialsProvider instance = null;
 
-    private static AmazonCognitoIdentityClient identityClient = new AmazonCognitoIdentityClient();
+    private static AmazonCognitoIdentityClient identityClient = null;
 
     /**
      * Gets the initialized instance of the CognitoCredentialsProvider. This provider should be accessed through the
@@ -69,7 +71,7 @@ public class CognitoCredentialsProvider implements CredentialsProvider {
                 user.getIdentity().getOpenIdToken()
         );
 
-        GetCredentialsForIdentityResult resp = identityClient.getCredentialsForIdentity(credsRequest);
+        GetCredentialsForIdentityResult resp = getIdentityClient().getCredentialsForIdentity(credsRequest);
         if (resp == null) {
             throw new AuthorizationException("Empty GetCredentialsForIdentity response");
         }
@@ -108,7 +110,7 @@ public class CognitoCredentialsProvider implements CredentialsProvider {
                 user.getUsername()
         );
 
-        GetOpenIdTokenForDeveloperIdentityResult resp = identityClient.getOpenIdTokenForDeveloperIdentity(oidcRequest);
+        GetOpenIdTokenForDeveloperIdentityResult resp = getIdentityClient().getOpenIdTokenForDeveloperIdentity(oidcRequest);
 
         if (resp == null) {
             throw new AuthorizationException("Empty GetOpenIdTokenForDeveloperIdentity response");
@@ -118,5 +120,13 @@ public class CognitoCredentialsProvider implements CredentialsProvider {
         identity.setIdentityId(resp.getIdentityId());
         identity.setOpenIdToken(resp.getToken());
         return identity;
+    }
+
+    private AmazonCognitoIdentityClient getIdentityClient() {
+        if (identityClient == null) {
+            identityClient = new AmazonCognitoIdentityClient();
+            identityClient.setRegion(Region.getRegion(CognitoConfiguration.REGION));
+        }
+        return identityClient;
     }
 }

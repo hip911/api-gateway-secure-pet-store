@@ -1,0 +1,295 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation template to launch resources the API Gateway Pet Store demo.",
+
+  "Mappings": {
+    "AllowedRegions": {
+      "eu-west-1": {"Region": "https://s3-eu-west-1"}
+    }
+  },
+
+  "Parameters": {
+    "CognitoIdentityPoolName": {
+      "Description": "Cognito Identity Pool Name.",
+      "Type": "String",
+      "Default": "PetStorePool"
+    },
+
+    "CognitoDeveloperProviderName": {
+      "Description": "Cognito Developer Provider Name.",
+      "Type": "String",
+      "Default": "PetStoreProvider"
+    },
+
+    "SourceCodeS3Bucket": {
+      "Description": "Source code S3 bucket for Lambda and S3 web files.",
+      "Type": "String",
+      "Default": "apigw-pet-store-workshop"
+    }
+
+  },
+
+  "Resources": {
+
+    "PetStoreCognitoRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [    {
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "cognito-identity.amazonaws.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity"
+          }]
+        },
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "root",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [{
+                "Effect": "Allow",
+                "Action": [
+                    "mobileanalytics:PutEvents",
+                    "cognito-sync:*",
+                    "cognito-identity:*"
+                ],
+                "Resource": [
+                    "*"
+                ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"],
+              "Resource": "arn:aws:logs:*:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["lambda:InvokeFunction"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["execute-api:Invoke"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["dynamodb:*"],
+              "Resource": ["*"]
+            }]
+          }
+        }]
+      }
+    },
+
+    "PetStoreLambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"Service": ["lambda.amazonaws.com", "apigateway.amazonaws.com"]},
+            "Action": ["sts:AssumeRole"]
+          }]
+        },
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "root",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"],
+              "Resource": "arn:aws:logs:*:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["lambda:*"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["execute-api:*"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["dynamodb:*"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["s3:*"],
+              "Resource": ["*"]
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["cognito-identity:*"],
+              "Resource": ["*"]
+            }]
+          }
+        }]
+      }
+    },
+
+    "UsersDynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "users",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "username",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {"AttributeName": "username", "KeyType": "HASH"}
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        }
+      }
+    },
+
+    "PetsDynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "pets",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "petId",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {"AttributeName": "petId", "KeyType": "HASH"}
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        }
+      }
+    },
+
+    "CognitoIdentityPool": {
+      "Type": "Custom::CognitoIdentityPool",
+      "Properties": {
+        "ServiceToken": { "Fn::GetAtt" : ["CognitoIdentityPoolFunction", "Arn"] },
+        "IdentityPoolName": { "Ref": "CognitoIdentityPoolName" },
+        "DeveloperProviderName": { "Ref" : "CognitoDeveloperProviderName" },
+        "Role": { "Fn::GetAtt" : ["PetStoreCognitoRole", "Arn"]  },
+        "Region": { "Ref" : "AWS::Region" }
+      },
+      "DependsOn": [
+        "PetStoreLambdaRole",
+        "PetStoreCognitoRole"
+      ]
+    },
+
+    "CognitoIdentityPoolFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Role": { "Fn::GetAtt": ["PetStoreLambdaRole", "Arn"] },
+        "Code": {
+          "S3Bucket": { "Ref": "SourceCodeS3Bucket" },
+          "S3Key": "CognitoIdentityPoolFunction.zip"
+        },
+        "Runtime": "nodejs",
+        "Timeout": "60"
+      },
+      "DependsOn": [
+        "PetStoreLambdaRole",
+        "PetStoreCognitoRole"
+      ]
+    },
+
+    "S3BucketForWebsiteContent": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+           "IndexDocument": "index.html",
+           "ErrorDocument": "error.html"
+        }
+      },
+      "DependsOn" : "PetStoreLambdaRole"
+    },
+
+    "PutWebsiteFilesInS3": {
+      "Type": "Custom::PutWebsiteFilesInS3",
+      "Properties": {
+        "ServiceToken": { "Fn::GetAtt" : ["S3GetFilesFunction", "Arn"] },
+        "SourceBucketName": { "Ref": "SourceCodeS3Bucket" },
+        "DestinationWebsiteBucket": { "Ref" : "S3BucketForWebsiteContent" },
+        "S3Region": { "Ref" : "AWS::Region" }
+      },
+      "DependsOn": [
+        "PetStoreLambdaRole",
+        "S3BucketForWebsiteContent"
+      ]
+    },
+
+    "S3GetFilesFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Role": { "Fn::GetAtt": ["PetStoreLambdaRole", "Arn"] },
+        "Code": {
+          "S3Bucket": { "Ref": "SourceCodeS3Bucket" },
+          "S3Key": "S3GetFilesFunction.zip"
+        },
+        "Runtime": "nodejs",
+        "Timeout": "60"
+      },
+      "DependsOn": [
+        "PetStoreLambdaRole",
+        "S3BucketForWebsiteContent"
+      ]
+    }
+
+  },
+
+  "Outputs": {
+
+    "MyPetStoreURL": {
+      "Value": { "Fn::Join": [ "", [ { "Fn::FindInMap" : [ "AllowedRegions", { "Ref" : "AWS::Region" }, "Region"]}, ".amazonaws.com/", { "Ref": "S3BucketForWebsiteContent" }, "/index.html" ] ] },
+      "Description": "The URL to access your newly created pet store."
+    },
+
+    "PetStoreLambdaRole": {
+      "Value": { "Fn::GetAtt" : [ "PetStoreLambdaRole" , "Arn" ] },
+      "Description": "The IAM role for the Pet Store Lambda function."
+    },
+
+    "PetStoreCognitoRole": {
+      "Value": { "Fn::GetAtt" : [ "PetStoreCognitoRole" , "Arn" ] },
+      "Description": "The IAM role for the Pet Store Cognito Identity Pool."
+    },
+
+    "CognitoIdentityPool": {
+      "Value": { "Fn::GetAtt" : [ "CognitoIdentityPool" , "IdentityPoolId" ] },
+      "Description": "The Cognito Identity Pool Id."
+    },
+
+    "CognitoDeveloperProviderName": {
+      "Value": { "Ref": "CognitoDeveloperProviderName" },
+      "Description": "The Cognito Developer Provider Name"
+    },
+
+    "DynamoDBUsersTableName": {
+      "Value": { "Ref": "UsersDynamoDBTable" },
+      "Description": "Table name of the newly created Users DynamoDB table."
+    },
+
+    "DynamoDBPetsTableName": {
+      "Value": { "Ref": "PetsDynamoDBTable" },
+      "Description": "Table name of the newly created Pets DynamoDB table."
+    }
+  }
+}

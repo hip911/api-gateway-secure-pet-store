@@ -19,6 +19,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 
+import com.amazonaws.regions.Region;
+
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class DDBPetDAO implements PetDAO {
 
     // credentials for the client come from the environment variables pre-configured by Lambda. These are tied to the
     // Lambda function execution role.
-    private static AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient();
+    private static AmazonDynamoDBClient ddbClient = null;
 
     /**
      * Returns the initialized default instance of the PetDAO
@@ -107,6 +109,10 @@ public class DDBPetDAO implements PetDAO {
      * @return An initialized DynamoDBMapper
      */
     protected DynamoDBMapper getMapper() {
+        if (ddbClient == null) {
+            ddbClient = new AmazonDynamoDBClient();
+            ddbClient.setRegion(Region.getRegion(DynamoDBConfiguration.REGION));
+        }
         return new DynamoDBMapper(ddbClient);
     }
 }

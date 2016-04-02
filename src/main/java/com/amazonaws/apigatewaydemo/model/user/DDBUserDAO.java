@@ -12,10 +12,14 @@
  */
 package com.amazonaws.apigatewaydemo.model.user;
 
+import com.amazonaws.apigatewaydemo.configuration.DynamoDBConfiguration;
+
 import com.amazonaws.apigatewaydemo.exception.DAOException;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+
+import com.amazonaws.regions.Region;
 
 /**
  * DynamoDB implementation of the UserDAO interface. This class reads the configuration from the DyanmoDBConfiguration
@@ -29,7 +33,7 @@ public class DDBUserDAO implements UserDAO {
 
     // credentials for the client come from the environment variables pre-configured by Lambda. These are tied to the
     // Lambda function execution role.
-    private static AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient();
+    private static AmazonDynamoDBClient ddbClient = null;
 
     /**
      * Returns an initialized instance of the DDBUserDAO object. DAO objects should be retrieved through the DAOFactory
@@ -91,6 +95,10 @@ public class DDBUserDAO implements UserDAO {
      * @return An initialized DynamoDBMapper
      */
     protected DynamoDBMapper getMapper() {
+        if (ddbClient == null) {
+            ddbClient = new AmazonDynamoDBClient();
+            ddbClient.setRegion(Region.getRegion(DynamoDBConfiguration.REGION));
+        }
         return new DynamoDBMapper(ddbClient);
     }
 }
