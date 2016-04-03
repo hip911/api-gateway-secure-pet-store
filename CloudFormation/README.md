@@ -20,7 +20,7 @@ If there are any issues installing any of these then don't worry, we have a Clou
 This workshop has a couple of exercises
 
 1\. To begin this workshop, click the 'Deploy to AWS' button below.
-[![Launch Pet Store Workshop Stack into Ireland with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=PetStoreWorkshopStack&templateURL=https://s3-eu-west-1.amazonaws.com/apigw-pet-store-workshop/CreatePetStoreWorkshop.template)
+[![Launch Pet Store Workshop Stack into Ireland with CloudFormation](/CloudFormation/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=PetStoreWorkshopStack&templateURL=https://s3-eu-west-1.amazonaws.com/apigw-pet-store-workshop/CreatePetStoreWorkshop.template)
 
 2\. If you do not have Java 1.8, Maven or the AWS ClI installed on your laptop then click the 'Deploy to AWS' button below to deploy a CLI instance to your account. Once the stack is created SSH into the instance.
 [![Launch Pet Store Workshop CLI Instance into Ireland with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=PetStoreWorkshopCLIInstance&templateURL=https://s3-eu-west-1.amazonaws.com/apigw-pet-store-workshop/CreateCLIInstance.template)
