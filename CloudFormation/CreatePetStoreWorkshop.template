@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "AWS CloudFormation template to launch resources the API Gateway Pet Store demo.",
+  "Description": "AWS CloudFormation template to launch resources the API Gateway Pet Store demo. Must be run in region: eu-west-1.",
 
   "Mappings": {
     "AllowedRegions": {
@@ -221,6 +221,26 @@
       "DependsOn" : "PetStoreLambdaRole"
     },
 
+    "S3BucketPolicy" : {
+       "Type" : "AWS::S3::BucketPolicy",
+       "Properties" : {
+          "PolicyDocument" : {
+             "Id" : "PublicReadForGetBucketObjects",
+             "Version": "2012-10-17",
+             "Statement" : [ {
+                "Sid" : "ReadAccess",
+                "Action" : [ "s3:GetObject" ],
+                "Effect" : "Allow",
+                "Resource" : { "Fn::Join" : [
+                      "", [ "arn:aws:s3:::", { "Ref": "S3BucketForWebsiteContent" } , "/*" ]
+                   ] },
+                "Principal" : "*"
+             } ]
+          },
+          "Bucket" : { "Ref": "S3BucketForWebsiteContent" }
+       }
+    },
+
     "PutWebsiteFilesInS3": {
       "Type": "Custom::PutWebsiteFilesInS3",
       "Properties": {
@@ -279,7 +299,7 @@
 
     "CognitoDeveloperProviderName": {
       "Value": { "Ref": "CognitoDeveloperProviderName" },
-      "Description": "The Cognito Developer Provider Name"
+      "Description": "The Cognito Developer Provider Name."
     },
 
     "DynamoDBUsersTableName": {

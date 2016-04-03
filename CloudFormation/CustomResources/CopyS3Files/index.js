@@ -12,7 +12,6 @@ exports.handler = function(event, context) {
   var srcS3Bucket = event.ResourceProperties.SourceBucketName;  // S3 bucket where AWS has hosted the lab content
   var dstS3Bucket = event.ResourceProperties.DestinationWebsiteBucket; // Bucket name that is passed in from CloudFormation.
   var keys = [
-    "S3/apiGateway-js-sdk/apigClient.js",
     "S3/apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js",
     "S3/apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js",
     "S3/apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js",
@@ -23,7 +22,6 @@ exports.handler = function(event, context) {
     "S3/apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js",
     "S3/apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js",
     "S3/apiGateway-js-sdk/lib/url-template/url-template.js",
-    "S3/apiGateway-js-sdk/README.md",
     "S3/controller.js",
     "S3/index.html",
     "S3/login.html",
