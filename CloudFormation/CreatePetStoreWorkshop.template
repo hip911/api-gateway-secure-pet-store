@@ -282,6 +282,11 @@
       "Description": "The URL to access your newly created pet store."
     },
 
+    "S3BucketForWebsiteContent": {
+      "Value": { "Ref": "S3BucketForWebsiteContent" },
+      "Description": "The S3 bucket created for the pet store website content."
+    },
+
     "PetStoreLambdaRole": {
       "Value": { "Fn::GetAtt" : [ "PetStoreLambdaRole" , "Arn" ] },
       "Description": "The IAM role for the Pet Store Lambda function."

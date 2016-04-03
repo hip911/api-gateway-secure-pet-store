@@ -11,8 +11,6 @@ This workshop requires the following software to be installed on your laptop inc
         brew install maven
 *   **AWS Command Line Interface (CLI)**  
     This lab requires the AWS CLI to perform the Swagger Import API calls to the AWS API Gateway service. For more information on installing the AWS CLI please following the instructions here: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
-*   **Xcode (optional)**  
-    To run the example mobile application you need to have Xcode installed which relies on you having a Mac OSX laptop. To install Xcode follow the instructions outlined here: https://developer.apple.com/xcode/download/
 
 If there are any issues installing any of these then don't worry, we have a CloudFormation template ready to setup a CLI instance to run the commands of the workshop.
 
@@ -34,15 +32,9 @@ Optionally there is another CloudFormation template that can be used to create a
 
 [![Launch Pet Store Workshop CLI Instance into Ireland with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=PetStoreWorkshopCLIInstance&templateURL=https://s3-eu-west-1.amazonaws.com/apigw-pet-store-workshop/CreateCLIInstance.template)
 
-3\. From your laptop or the CLI instance, install the source code of the workshop and the swagger import tool to your CLI instance:
-
-*Pet Store Workshop source*
+3\. From your laptop or the CLI instance, install the source code of the workshop by cloning the git repository from Github.
 
     git clone https://github.com/mattmcclean/api-gateway-secure-pet-store.git
-
-*API Gateway Swagger Importer tool*
-
-    git clone https://github.com/awslabs/aws-apigateway-importer.git
 
 4\. The next step is to configure the application to utilize the correct Cognito Identity Pool created in the CloudFormation template in Step 1. The app reads the configuration from static variable named `IDENTITY_POOL_ID` declared in the `CognitoConfiguration` class in the `com.amazonaws.apigatewaydemo.configuration` package. Set the value to be the value of the Output Key `CognitoIdentityPool` from the CloudFormation stack output.
 
@@ -60,9 +52,14 @@ If you are running the command from the CLI Instance then run the following dock
 
 6\. Create the Lambda function by running the AWS CLI command below. You will need to replace the text *<YOUR_IAM_ROLE_ARN>* with the IAM role ARN found in the Cloudformation output parameter name: **PetStoreLambdaRole**.
 
-    aws lambda create-function --function-name PetStoreFunction --zip-file fileb://target/api-gateway-secure-pet-store-1.0-SNAPSHOT.jar --role <YOUR_IAM_ROLE_ARN> --runtime java8 --handler "com.amazonaws.apigatewaydemo.RequestRouter::lambdaHandler" --description "API Gateway Pet Store demo function" --timeout 15 --memory-size 512
+    aws lambda create-function --function-name PetStoreFunction \
+    --zip-file fileb://target/api-gateway-secure-pet-store-1.0-SNAPSHOT.jar \
+    --role <YOUR_IAM_ROLE_ARN> --runtime java8 --handler \
+    "com.amazonaws.apigatewaydemo.RequestRouter::lambdaHandler" \
+    --description "API Gateway Pet Store demo function" \
+    --timeout 15 --memory-size 512
 
-7\. Now that the Lambda function is ready we can setup the API structure in Amazon API Gateway. To easily create the entire API we are going to use the [Swagger Importer Tool](https://github.com/awslabs/aws-apigateway-swagger-importer). If you are using the CLI instance then the tool is already installed, else download and build the Swagger Importer tool following the instructions in its README.md file.
+7\. Now that the Lambda function is ready we can setup the API structure in Amazon API Gateway. To easily create the entire API we are going to use the [Swagger Importer Tool](https://github.com/awslabs/aws-apigateway-swagger-importer). The tool depends on having Maven installed to build it so if you have problems installing Maven use the CLI instance. Download and build the Swagger Importer tool following the instructions in its README.md file.
 
 8\. Open the Swagger definition in the `src/main/resources/Swagger.yaml` file. Search the file for `x-amazon-apigateway-integration`. This tag defines the integration points between API Gateway and the backend, our Lambda function. Make sure that the `uri` for the Lambda function is correct, it should look like this:
 
@@ -76,9 +73,18 @@ A role has already been created for the `/users` and `/login` methods. Copy the 
 
     ./aws-api-import.sh --create /path/to/secure-pet-store/src/main/resources/swagger.yaml --region eu-west-1
 
-10\. Now go into the AWS Management Console and select the API Gateway service. You should see an API called "".
+If you are running on the CLI instance you can run the following commands to run the import tool via Docker:
 
-11\. The final step we need to do is to generate an SDK for JavaScript so that our web application can invoke the API Endpoint for the Pet Store application.
+    docker build -t swagger-importer .
+
+    docker run -v /home/ec2-user/api-gateway-secure-pet-store:/app swagger-importer -c /app/src/main/resources/swagger.yaml --region eu-west-1
+
+10\. Now go into the AWS Management Console and select the API Gateway service. You should see an API called **API Gateway Secure Pet Store**. Select the API and click the button **Deploy API**. Create a new Deployment Stage (e.g. Prod) and description and deploy the API. You should now see the endpoint URL created for the stage.
+
+11\. The final step we need to do is to generate an SDK for JavaScript so that our web application can invoke the API Endpoint for the Pet Store application. From the same AWS Management Console, select the API endpoint **API Gateway Secure Pet Store** and the stage created previously. Select the tab named **SDK Generation** and select the platform **JavaScript** and download the zip file. Extract the zip file locally and run the following commands to copy the API Gateway client to the S3 website bucket.
+
+    aws s3 cp apiGateway-js-sdk/apigClient.js s3://<S3BucketForWebsiteContent>/apiGateway-js-sdk/apigClient.js
+
+Note: you can get the S3 bucket name from the CloudFormation output parameter named **S3BucketForWebsiteContent**.
 
 * * *
-Â

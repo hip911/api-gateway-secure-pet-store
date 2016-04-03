@@ -1,8 +1,23 @@
 <div ng-controller="LoginController">
+  <h2>Pet Store API Gateway Login Page</h2>
   <form action="/" id="myLogin">
-    Username: <input type="text" id="username" ng-model="username" /><br />
-    Password: <input type="password" id="password" ng-model="password" /><br />
-    <button type="button" ng-click="register()" value="Register">Register</button>
-    <button type="button" ng-click="login()" value="Login">Login</button>
+  <table border = "0">
+   <tr>
+      <td>Username:</td>
+      <td>
+        <input type="text" id="username" ng-model="username" />
+      </td>
+   </tr>
+   <tr>
+      <td>Password:</td>
+      <td>
+         <input type="password" id="password" ng-model="password" />
+      </td>
+   </tr>
+   <tr>
+     <td><button type="button" ng-click="register()" value="Register">Register</button></td>
+     <td><button type="button" ng-click="login()" value="Login">Login</button></td>
+   </tr>
+ </table>
   </form>
 </div>

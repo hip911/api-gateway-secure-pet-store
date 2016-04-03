@@ -1,6 +1,6 @@
 <div ng-controller="PetsController">
   <h2>List of Pets including name, type and age</h2>
-  <table style="width:100%">
+  <table border = "0">
     <tr>
       <th>Id</th>
       <th>Name</th>
@@ -15,10 +15,32 @@
     </tr>
   </table>
 
+  <h2>Add a new Pet</h2>
+  <table border = "0">
   <form action="/" id="newPetSubmit">
-    Type: <input type="text" id="petType" ng-model="pet.petType" /><br />
-    Name: <input type="text" id="petName" ng-model="pet.petName" /><br />
-    Age: <input type="text" id="petAge" ng-model="pet.petAge" /><br />
-    <button type="button" ng-click="submit()" value="Add">Add</button>
+    <tr>
+       <td>Type:</td>
+       <td>
+         <input type="text" id="petType" ng-model="pet.petType" />
+       </td>
+    </tr>
+    <tr>
+       <td>Name:</td>
+       <td>
+         <input type="text" id="petName" ng-model="pet.petName" />
+       </td>
+    </tr>
+    <tr>
+       <td>Age:</td>
+       <td>
+         <input type="text" id="petAge" ng-model="pet.petAge" />
+       </td>
+    </tr>
+    <tr>
+      <td >
+        <button type="button" ng-click="submit()" value="Add">Add</button>
+      </td>
+    </tr>
   </form>
+  </table>
 </div>
