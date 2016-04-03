@@ -6,7 +6,7 @@ info:
   description: Pet store sample that uses Cognito Developer Authenticated Identities to generate credentials through a Java Lambda Function
   version: "1.0.0"
 # the domain of the service
-host: execute-api.us-east-1.amazonaws.com
+host: execute-api.eu-west-1.amazonaws.com
 # array of all schemes that your API supports
 schemes:
   - https
@@ -100,7 +100,7 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-amz-security-token'"
               method.response.header.Access-Control-Allow-Methods : "'*'"
               method.response.header.Access-Control-Allow-Origin : "'*'"
             responseTemplates:
@@ -201,7 +201,7 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-amz-security-token'"
               method.response.header.Access-Control-Allow-Methods : "'*'"
               method.response.header.Access-Control-Allow-Origin : "'*'"
             responseTemplates:
@@ -360,7 +360,7 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-amz-security-token'"
               method.response.header.Access-Control-Allow-Methods : "'*'"
               method.response.header.Access-Control-Allow-Origin : "'*'"
             responseTemplates:
@@ -462,7 +462,7 @@ paths:
           "default":
             statusCode: "200"
             responseParameters:
-              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-amz-security-token'"
               method.response.header.Access-Control-Allow-Methods : "'*'"
               method.response.header.Access-Control-Allow-Origin : "'*'"
             responseTemplates:

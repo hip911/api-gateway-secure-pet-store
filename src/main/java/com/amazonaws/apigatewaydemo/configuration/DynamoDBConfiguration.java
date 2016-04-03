@@ -12,14 +12,19 @@
  */
 package com.amazonaws.apigatewaydemo.configuration;
 
+import com.amazonaws.regions.Regions;
+
 /**
  * Configuration parameters for the DynamoDB DAO objects
  */
 public class DynamoDBConfiguration {
-    // TODO: Specify the name of the Users table in DynamoDB
+    // Specify the name of the Users table in DynamoDB
     public static final String USERS_TABLE_NAME = "users";
-    // TODO: Specify the name of the Pet table in DynamoDB
+    // Specify the name of the Pet table in DynamoDB
     public static final String PET_TABLE_NAME = "pets";
 
     public static final int SCAN_LIMIT = 50;
+
+    // set the region to be EU (Ireland)
+    public static final Regions REGION = Regions.EU_WEST_1;
 }
