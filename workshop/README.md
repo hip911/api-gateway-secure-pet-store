@@ -48,7 +48,8 @@ If you are running the command from the CLI Instance then run the following dock
 
     cd ~/api-gateway-secure-pet-store
 
-    docker run -it -v "$PWD":/usr/src/mymaven -v /tmp/.m2:/root/.m2 -w /usr/src/mymaven maven:3.3-jdk-8 mvn package
+    docker run -it -v "$PWD":/usr/src/mymaven -v /tmp/.m2:/root/.m2 \
+    -w /usr/src/mymaven maven:3.3-jdk-8 mvn package
 
 6\. Create the Lambda function by running the AWS CLI command below. You will need to replace the text *<YOUR_IAM_ROLE_ARN>* with the IAM role ARN found in the Cloudformation output parameter name: **PetStoreLambdaRole**.
 
@@ -77,7 +78,9 @@ If you are running on the CLI instance you can run the following commands to run
 
     docker build -t swagger-importer .
 
-    docker run -v /home/ec2-user/api-gateway-secure-pet-store:/app swagger-importer -c /app/src/main/resources/swagger.yaml --region eu-west-1
+    docker run -v /home/ec2-user/api-gateway-secure-pet-store:/app \
+    swagger-importer -c /app/src/main/resources/swagger.yaml \
+    --region eu-west-1
 
 10\. Now go into the AWS Management Console and select the API Gateway service. You should see an API called **API Gateway Secure Pet Store**. Select the API and click the button **Deploy API**. Create a new Deployment Stage (e.g. Prod) and description and deploy the API. You should now see the endpoint URL created for the stage.
 
