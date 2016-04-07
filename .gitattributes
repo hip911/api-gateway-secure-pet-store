@@ -1,0 +1,23 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text eol=lf
+
+# Windows line endings
+*.ps1 text eol=crlf
+
+# Binaries
+*.jpg binary
+*.doc binary
+*.docx binary
+*.pdf binary
+*.gif binary
+*.zip binary
+*.msi binary
+*.png binary
+*.jar binary
+*.ppt binary
+*.potx binary
+*.pptx binary
+*.xls binary
+*.xlsx binary
+*.tar.gz binary
+*.tar.xz binary
