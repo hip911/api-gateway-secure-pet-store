@@ -80,12 +80,15 @@ A role has already been created for the `/users` and `/login` methods. Copy the 
     aws apigateway import-rest-api --body file://src/main/resources/swagger.yaml --region eu-west-1
 
 10\. Now go into the AWS Management Console and select the API Gateway service that was created. You should see something like the following.
+
 ![]](/Images/api-create.png)
 
 You should see an API called **API Gateway Secure Pet Store**. Select the API and click the button **Deploy API**. Create a new Deployment Stage (e.g. Prod) and description and deploy the API like the screenshot below.
+
 ![]](/Images/deploy-api.png)
 
 You should now see the endpoint URL created for the stage like the screenshot below.
+
 ![]](/Images/get-api-link.png)
 
 11\. The final step we need to do is to generate an SDK for JavaScript so that our web application can invoke the API Endpoint for the Pet Store application. From the same AWS Management Console, select the API endpoint **API Gateway Secure Pet Store** and the stage created previously. Select the tab named **SDK Generation** and select the platform **JavaScript** and download the zip file. Extract the zip file locally and run the following commands to copy the API Gateway client to the S3 website bucket.
@@ -95,5 +98,6 @@ You should now see the endpoint URL created for the stage like the screenshot be
 Note: you can get the S3 bucket name from the CloudFormation output parameter named **S3BucketForWebsiteContent**.
 
 You should see the following login page:
+
 ![]](/Images/pet-store-login-page.png)
 * * *
