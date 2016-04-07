@@ -65,9 +65,7 @@ If you are running the command from the CLI Instance then run the following dock
     --description "API Gateway Pet Store demo function" \
     --timeout 15 --memory-size 512
 
-7\. Now that the Lambda function is ready we can setup the API structure in Amazon API Gateway. To easily create the entire API we are going to use the [Swagger Importer Tool](https://github.com/awslabs/aws-apigateway-swagger-importer). The tool depends on having Maven installed to build it so if you have problems installing Maven use the CLI instance. Download and build the Swagger Importer tool following the instructions in its README.md file.
-
-8\. Open the Swagger definition in the `src/main/resources/Swagger.yaml` file. Search the file for `x-amazon-apigateway-integration`. This tag defines the integration points between API Gateway and the backend, our Lambda function. Make sure that the `uri` for the Lambda function is correct, it should look like this:
+7\. Now that the Lambda function is ready we can setup the API structure in Amazon API Gateway by importing the API definition from the Swagger file. Open the Swagger definition in the `src/main/resources/Swagger.yaml` file. Search the file for `x-amazon-apigateway-integration`. This tag defines the integration points between API Gateway and the backend, our Lambda function. Make sure that the `uri` for the Lambda function is correct, it should look like this:
 
     arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/<YOUR LAMBDA FUNCTION ARN>/invocations
 
@@ -75,11 +73,11 @@ For the `/users` and `/login` (the first 2 paths in the file) you will also have
 
 A role has already been created for the `/users` and `/login` methods. Copy the **Role ARN** from the CloudFormation Output field name: **PetStoreLambdaRole** and paste it in the `credentials` field of the `/users` and `/login` methods of the Swagger file.
 
-9\. Now that the Swagger file is up to date run the following AWS CLI command to import the API from the Swagger file definition from the `api-gateway-secure-pet-store` directory.
+8\. Now that the Swagger file is up to date run the following AWS CLI command to import the API from the Swagger file definition from the `api-gateway-secure-pet-store` directory.
 
     aws apigateway import-rest-api --body file://src/main/resources/swagger.yaml --region eu-west-1
 
-10\. Now go into the AWS Management Console and select the API Gateway service that was created. You should see something like the following.
+9\. Now go into the AWS Management Console and select the API Gateway service that was created. You should see something like the following.
 
 ![](/Images/api-create.png)
 
@@ -91,7 +89,7 @@ You should now see the endpoint URL created for the stage like the screenshot be
 
 ![](/Images/get-api-link.png)
 
-11\. The final step we need to do is to generate an SDK for JavaScript so that our web application can invoke the API Endpoint for the Pet Store application. From the same AWS Management Console, select the API endpoint **API Gateway Secure Pet Store** and the stage created previously. Select the tab named **SDK Generation** and select the platform **JavaScript** and download the zip file. Extract the zip file locally and run the following commands to copy the API Gateway client to the S3 website bucket.
+10\. The final step we need to do is to generate an SDK for JavaScript so that our web application can invoke the API Endpoint for the Pet Store application. From the same AWS Management Console, select the API endpoint **API Gateway Secure Pet Store** and the stage created previously. Select the tab named **SDK Generation** and select the platform **JavaScript** and download the zip file. Extract the zip file locally and run the following commands to copy the API Gateway client to the S3 website bucket.
 
     aws s3 cp apiGateway-js-sdk/apigClient.js s3://<S3BucketForWebsiteContent>/apiGateway-js-sdk/apigClient.js
 
