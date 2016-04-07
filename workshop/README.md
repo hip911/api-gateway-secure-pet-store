@@ -10,7 +10,8 @@ This workshop requires the following software to be installed on your laptop inc
     This lab requires a Maven to build the Lambda function codebase. If you haven't installed Maven already please follow the steps from the link: https://maven.apache.org/install.html. If you are using Homebrew you can install Maven with the command:
         brew install maven
 *   **AWS Command Line Interface (CLI)**  
-    This lab requires the AWS CLI to perform the Swagger Import API calls to the AWS API Gateway service. For more information on installing the AWS CLI please following the instructions here: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+    This lab requires the AWS CLI to perform the Swagger Import API calls to the AWS API Gateway service. It needs to be at least version 1.10.18 or higher.
+    For more information on installing the AWS CLI please following the instructions here: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 
 If there are any issues installing any of these then don't worry, we have a CloudFormation template ready to setup a CLI instance to run the commands of the workshop.
 
@@ -64,23 +65,15 @@ If you are running the command from the CLI Instance then run the following dock
 
 8\. Open the Swagger definition in the `src/main/resources/Swagger.yaml` file. Search the file for `x-amazon-apigateway-integration`. This tag defines the integration points between API Gateway and the backend, our Lambda function. Make sure that the `uri` for the Lambda function is correct, it should look like this:
 
-    arn:aws:apigateway:<YOUR REGION>:lambda:path/2015-03-31/functions/<YOUR LAMBDA FUNCTION ARN>/invocations
+    arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/<YOUR LAMBDA FUNCTION ARN>/invocations
 
 For the `/users` and `/login` (the first 2 paths in the file) you will also have to specify the invocation role API Gateway should use to call the Lambda function. You can specify the role ARN in the `credentials` field of the Swagger file, next to the `uri` field. The `/pets` methods use a special role: `arn:aws:iam::*:user/*`. This tells API Gateway to invoke the Lambda function using the caller credentials.
 
 A role has already been created for the `/users` and `/login` methods. Copy the **Role ARN** from the CloudFormation Output field name: **PetStoreLambdaRole** and paste it in the `credentials` field of the `/users` and `/login` methods of the Swagger file.
 
-9\. Now that the Swagger file is up to date run the Swagger Importer tool from the command line to create the API in Amazon API Gateway. The Swagger Importer uses your local [AWS credentials set by the AWS cli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-config-files). From the Swagger Importer tool folder run:
+9\. Now that the Swagger file is up to date run the following AWS CLI command to import the API from the Swagger file definition from the `api-gateway-secure-pet-store` directory.
 
-    ./aws-api-import.sh --create /path/to/secure-pet-store/src/main/resources/swagger.yaml --region eu-west-1
-
-If you are running on the CLI instance you can run the following commands to run the import tool via Docker:
-
-    docker build -t swagger-importer .
-
-    docker run -v /home/ec2-user/api-gateway-secure-pet-store:/app \
-    swagger-importer -c /app/src/main/resources/swagger.yaml \
-    --region eu-west-1
+    aws apigateway import-rest-api --body file://src/main/resources/swagger.yaml --region eu-west-1
 
 10\. Now go into the AWS Management Console and select the API Gateway service. You should see an API called **API Gateway Secure Pet Store**. Select the API and click the button **Deploy API**. Create a new Deployment Stage (e.g. Prod) and description and deploy the API. You should now see the endpoint URL created for the stage.
 
