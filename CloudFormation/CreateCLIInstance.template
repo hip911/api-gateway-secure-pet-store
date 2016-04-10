@@ -266,6 +266,7 @@
         				"touch /home/ec2-user/.aws/config\n",
                 "echo [default] >> /home/ec2-user/.aws/config\n",
                 "echo region=", {"Ref": "AWS::Region"}, " >> /home/ec2-user/.aws/config\n",
+                "chown -R ec2-user:ec2-user /home/ec2-user/.aws\n",
                 "mkdir /tmp/.m2\n",
                 "chmod 777 /tmp/.m2"
               ]
