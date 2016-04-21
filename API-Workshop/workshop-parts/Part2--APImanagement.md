@@ -5,26 +5,28 @@
 
 
 ## Table of Contents
-`TODO: Manfred to update at the end`
 
-* Intro to [3scale](https://www.3scale.net/) API Management ([Jump to section](#intro))
-* Goals of this tutorial ([Jump to section](#goals))
-* Prerequisites for this tutorial ([Jump to section](#prerequisites))
+* 0) Prerequisites for this tutorial ([Jump to section](#prerequisites))
+* 1) Goals of this tutorial ([Jump to section](#goals))
 * Setting up the Amazon Virtual Private Cloud (VPC) ([Jump to section](#vpc))
 * Setting up Elasticache ([Jump to section](#elasticache))
 * Creating the Lambda code ([Jump to section](#lambda))
-* Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles ([Jump to section](#authorizer))
 * Create and deploy the 3scale-specific custom authorizer ([Jump to section](#deploy))
+* Additional resources
+	* Intro to [3scale](https://www.3scale.net/) API Management ([Jump to section](#intro))
+	* Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles ([Jump to section](#authorizer))
 
-<a name="intro"></a>
-## Intro to 3scale API Management
-3scale makes it easy to open, secure, manage, distribute, control, and monetize your APIs. Built with performance, customer control and excellent time-to-value in mind, no other solution gives API providers so much power, ease, flexibility and scalability in such a cost effective way. Check it out at https://www.3scale.net
-
-3scale’s API Management Platform also supports the unique requirements of delivering APIs on the Amazon Web Services (AWS) infrastructure stack -- fexibly, at scale and with great RoI. API providers on AWS don’t have to switch solutions to get Amazon API gateway features like distributed denial-of-service (DDoS) attack protection, caching and logging. Plus, adding 3scale provides rich, sophisticated API management business operations for fine-grained API control and visibility, as well as features for API adoption and promotion. Check out the details about this [integrated solution](https://www.3scale.net/amazon-gateway-integration/).
+<a name="prerequisites"></a>
+## 0) Prerequisites for this tutorial
+* 3scale account -- sign up at [3scale.net](https://www.3scale.net/aws-loft/ )
+* AWS account -- sign up at [aws.amazon.com](http://aws.amazon.com)
+* AWS command line interface (CLI) installed locally -- ([Instructions](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html))
+* Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
+* Serverless framework installed locally -- ([Instructions](https://github.com/serverless/serverless))
 
 
 <a name="goals"></a>
-## Goals of this tutorial
+## 1) Goals of this tutorial
 You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API.
 
 For this tutorial you will use:
@@ -64,19 +66,8 @@ Here is the flow for every subsequent call:
 5. The 3scale custom authorizer calls the 3scale Async Reporting Function.
 6. The 3scale Async Reporting Function reports the traffic back to the 3scale API Management platform, which is used for API analytics.
 
-<a name="prerequisites"></a>
-## Prerequisites for this tutorial
-* 3scale account -- sign up at [3scale.net](https://www.3scale.net/aws-loft/ )
-* AWS account -- sign up at [aws.amazon.com](http://aws.amazon.com)
-* AWS command line interface (CLI) installed locally -- ([Instructions](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html))
-* Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
-* Serverless framework installed locally -- ([Instructions](https://github.com/serverless/serverless))
 
-<a name="principles"></a>
-## Intro to the Amazon API Gateway custom authorizer principles
-With the Amazon API Gateway custom authorizer, you can control access to your APIs using bearer token authentication strategies, such as OAuth or SAML. To do so, you provide and configure a custom authorizer (basically your own Lambda function) for the Amazon API Gateway, which is then used to authorize the client requests for the configured APIs. You can find all the details how to do this in a dedicated Amazon API Gateway [tutorial](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html).
 
-In the next section, we describe the our custom authorizer that we wrote to authorize API calls against the 3scale API Management platform.
 
 ## (Optional) Create an API and deployed it to Amazon API gateway
 If you don't yet have an API deployed on Amazon API gateway you can create one very easily using the [Serverless](https://github.com/serverless/serverless) framework. `sls` is the Serverless CLI which you should have installed on your system as part of the prerequisites of this tutorial.
@@ -340,5 +331,15 @@ If we did it all correctly, then you will see the result of your API call return
 Now let's try with a non valid Key. Simply replace the API key with any random string. Hit the endpoint again. See? It does not work. The call is not authorized and an error response is returned.
 
 Your API is now protected and only accessible to people with a valid API key.
+
+<a name="intro"></a>
+## Intro to 3scale API Management
+3scale makes it easy to open, secure, manage, distribute, control, and monetize your APIs. Built with performance, customer control and excellent time-to-value in mind, no other solution gives API providers so much power, ease, flexibility and scalability in such a cost effective way. Check it out at https://www.3scale.net
+
+3scale’s API Management Platform also supports the unique requirements of delivering APIs on the Amazon Web Services (AWS) infrastructure stack -- fexibly, at scale and with great RoI. API providers on AWS don’t have to switch solutions to get Amazon API gateway features like distributed denial-of-service (DDoS) attack protection, caching and logging. Plus, adding 3scale provides rich, sophisticated API management business operations for fine-grained API control and visibility, as well as features for API adoption and promotion. Check out the details about this [integrated solution](https://www.3scale.net/amazon-gateway-integration/).
+
+<a name="principles"></a>
+## Intro to the Amazon API Gateway custom authorizer principles
+With the Amazon API Gateway custom authorizer, you can control access to your APIs using bearer token authentication strategies, such as OAuth or SAML. To do so, you provide and configure a custom authorizer (basically your own Lambda function) for the Amazon API Gateway, which is then used to authorize the client requests for the configured APIs. You can find all the details how to do this in a dedicated Amazon API Gateway [tutorial](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html).
 
 [Back to workshop overview](../README.md)
