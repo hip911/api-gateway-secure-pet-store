@@ -77,12 +77,23 @@ If you don't yet have an API deployed on Amazon API gateway you can create one v
 
 Follow the following steps:
 
-1. Create a project: `sls create project`
-2. Create a function: `sls function create greetings` (This will create a `greetings` folder.)
+1. Create a project: `sls project create`, let's call it `sls-awstutorial` 
+This step is taking few minutes.
+2. Move into the new created folder `cd sls-awstutorial`
+3. Create an endpoint: `sls function create greetings` (This will create a `greetings` folder.)
 ![serverless - create function](./img/sls - function create.png)
-3. Check if it's working and the result of an API call by locally running:  `sls function run`.
+4. Move to the `greetings` folder `cd greetings`
+5. You can test this endpoint with the command:  `sls function run`.
+You should see the following result
+```
+{
+	"message": "Go Serverless! Your Lambda function executed successfully!"
+}
+```
+This is what we will returned by our API endpoint.
 4. Finally deploy this endpoint using: `sls dash deploy`
 ![serverless dash deploy](./img/sls - dash deploy.png)
+Select both the endpoint and the function.
 
 If it succeeded it should give you the URL of the API created.
 We will use this API during the rest of our tutorial.
