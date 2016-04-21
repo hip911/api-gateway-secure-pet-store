@@ -1,8 +1,10 @@
 [Back to workshop overview](../README.md)
 
-# API Gateway Pet Store: Lab Guide
+# Part 2
+# Create and deploy an API using the Amazon API Gateway and AWS Lambda
+# (API Gateway Pet Store: Lab Guide)
 
-## All Labs must be performed in eu-west-1 (Ireland)
+## Note: All Labs must be performed in eu-west-1 (Ireland)
 
 ## Prerequisites
 This workshop requires the following software to be installed on your laptop including:
@@ -101,3 +103,5 @@ You should see the following login page:
 
 ![](/Images/pet-store-login-page.png)
 * * *
+
+[Back to workshop overview](../README.md)
