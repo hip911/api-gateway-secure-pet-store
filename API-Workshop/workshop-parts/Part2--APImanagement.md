@@ -1,13 +1,8 @@
 [Back to workshop overview](../README.md)
 
-# AWS Pop-up Loft Workshop
-# Designing and managing scalable APIs with AWS and 3scale
+# Part 2
+# Integrate with 3scale to add API management features
 
-This workshop is jointly delivered between Amazon Web Services (AWS) and the AWS Advanced Technology partner 3scale API Management Platform. Together we provide a full complement API program management solution that integrates 3scale with the Amazon API Gateway and Lambda.
-
-The workshop is held at the AWS Pop-up Loft London on April 25th, 9:00AM - 1:00PM. The workshop description can be found [here](https://awsloft.london/session/2016/fd3f2e85-b292-44cd-867d-2c0528cbd741).
-
-This part of the tutorial focuses on how the [integration](https://www.3scale.net/amazon-gateway-integration/) between 3scale, Amazon API Gateway and Lambda can be achieved practically.
 
 ## Table of Contents
 `TODO: Manfred to update at the end`
@@ -345,3 +340,5 @@ If we did it all correctly, then you will see the result of your API call return
 Now let's try with a non valid Key. Simply replace the API key with any random string. Hit the endpoint again. See? It does not work. The call is not authorized and an error response is returned.
 
 Your API is now protected and only accessible to people with a valid API key.
+
+[Back to workshop overview](../README.md)
