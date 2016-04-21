@@ -1,3 +1,5 @@
+[Back to workshop overview](../README.md)
+
 # API Gateway Pet Store: Lab Guide
 
 ## All Labs must be performed in eu-west-1 (Ireland)
