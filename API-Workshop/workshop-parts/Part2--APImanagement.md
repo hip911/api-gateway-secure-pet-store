@@ -115,7 +115,7 @@ If don't have a VPC, create one first and then follow these steps:
 5. Once the route table is created, edit the routes.
 Point `0.0.0.0/0` to the NAT gateway you created earlier.
 ![aws vpc route creation](./img/aws-vpc route table.png)
-6. Attach this rule to at least two subnets in your VPC. For this, select an subnets that are not the ones attached to the NAT gateway.
+6. Attach this rule to at least two subnets in your VPC. For this, select subnets that are not attached to the NAT gateway.
 ![aws vpc attach route table](./img/aws - subnet route table.png)
 7. Select the route table you just created on the route tables tab.
 
@@ -158,12 +158,18 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 	```
 
 2. In the `awsThreeScale_Authorizer` folder you will see two different folders, which represent the two Lambda function we are going to use:
-* `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
-* `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
+    * `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
+    * `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
 
 Before deploying this to AWS we need to complete a few more tasks.
 
-1. Init serverless project with `sls project init`
+1. Init serverless project with 
+
+```
+npm install
+sls project init
+```
+
 ![](./img/sls_project_init.png)
 
 2. In `awsThreeScale_Authorizer` folder and on each function folder run the `npm install` command. This will install all the NPM plugins needed.
@@ -198,14 +204,14 @@ For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the clu
 
 ![aws elasticache](./img/aws_elasticache_endpoint.png)
 
-3. In the `s-function.json` file for `authorizer function` you will see a `SNS_TOPIC_ARN` property. Leave it like it is for now, we will come back to it later.
-4. In the `s-function.json` you have a `vpc` section, too. Replace it with the securitygroup and the subnets we have created before. The VPC section should look like this now:
+3. In the `s-function.json` file for `authorizer` function you will see a `SNS_TOPIC_ARN` property. Leave it like it is for now, we will come back to it later.
+4. In the `s-function.json` you have a `vpc` section, too. Replace it with the security group and the subnets we have created before. The VPC section should look like this now:
 
 	```
 	"vpc": {
-	    "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
-	    "subnetIds": ["ID_OF_SUBNET","ID_OF_ANOTHER_SUBNET"]
-	    }
+	   "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
+	   "subnetIds": ["ID_OF_SUBNET","ID_OF_ANOTHER_SUBNET"]
+   }
 	```
 This part of the configuration assigns a VPC to the Lambda function, so it can communicate with Elasticache.
 
