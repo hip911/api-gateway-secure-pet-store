@@ -7,8 +7,17 @@ The workshop is held at the AWS Pop-up Loft London on April 25th, 9:00AM - 1:00P
 
 We kick off the workshop with short presentations about API design principles and intro to the various services and technologies used later. Then we start with the practical element of the workshop, which includes the following parts:
 
-### Part 1: [Create and deploy an API using the Amazon API Gateway and AWS Lambda](workshop-parts/Part1--APIgatewayLambda.md) 
+#### Part 1: 
+### [Create and deploy an API using the Amazon API Gateway and AWS Lambda](workshop-parts/Part1--APIgatewayLambda.md) 
 
-### Part 2: [Integrate with 3scale to add API management features](workshop-parts/Part2--APImanagement.md) (like analytics, developer portals, or interactive API documentation)
+#### Part 2:
+### [Integrate with 3scale to add API management features](workshop-parts/Part2--APImanagement.md) (like API analytics)
+
+#### Part 3:
+### (Optional) [Create tiered application plans with different API contracts](workshop-parts/Part3--ApplicationPlans.md)
+
+#### Part 4:
+### (Optional) [Expose your API to developers with a developer portal and interactive API documentation](workshop-parts/Part4--DevPortal.md)
+
 
 
