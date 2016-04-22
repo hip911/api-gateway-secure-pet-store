@@ -15,12 +15,12 @@ We kick off the workshop with short presentations about API design principles an
 ### [Integrate with 3scale to add API management features](workshop-parts/Part2--APImanagement.md) (like API analytics)
 ---
 
-#### Part 3:
-### (Optional) [Create tiered application plans with different API contracts](workshop-parts/Part3--ApplicationPlans.md)
+#### Part 3: (Optional)
+### [Create tiered application plans with different API contracts](workshop-parts/Part3--ApplicationPlans.md)
 ---
 
-#### Part 4:
-### (Optional) [Expose your API to developers with a developer portal and interactive API documentation](workshop-parts/Part4--DevPortal.md)
+#### Part 4: (Optional)
+### [Expose your API to developers with a developer portal and interactive API documentation](workshop-parts/Part4--DevPortal.md)
 ---
 
 
