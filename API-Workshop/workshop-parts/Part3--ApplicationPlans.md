@@ -7,10 +7,10 @@ In this part of the tutorial we show how to use the 3scale API Management platfo
 
 ## Table of Contents
 * Mapping API endpoints in 3scale ([Jump to section](#mappings))
-* Creating and configuring application plans
-* Exploring API endpoints in API analytics
-* Summary of what we achieved
-* Further resources
+* Creating and configuring application plans ([Jump to section](#appplans))
+* Exploring API endpoints in API analytics ([Jump to section](#analytics))
+* Summary of what we achieved ([Jump to section](#summary))
+* Further resources ([Jump to section](#resources))
 
 <a name="mappings"></a>
 ## Mapping API endpoints in 3scale
@@ -18,7 +18,7 @@ After you have completed [Part 2](Part2--APImanagement.md) of this workshop, you
 
 For the workshop we use the classic [petstore](http://petstore.swagger.io/) example. You can also check out the [swagger.json](http://petstore.swagger.io/v2/swagger.json) file that represents the various petstore API endpoints. This example has a total of three resources and 19 endpoints.  
 
-![petstore swagger](./img/part3-2-petstore-swagger.png)
+![petstore swagger](./img/part3-1-petstore-swagger.png)
 
 In order to map those into 3scale follow these steps:
 
@@ -49,7 +49,7 @@ As a next step, we want to configure different application plans on top of our m
 
 
 
-
+<a name="appplans"></a>
 ## Creating and configuring application plans
 
 [Application plans in 3scale](https://support.3scale.net/howtos/api-configuration#application-plans) define the different sets of access rights you might want to allow for consumers of your API. These can determine anything from rate limits, which methods or resources are accessible, which features are enabled and also let you define to charge for access to the API based on a business model that you choose. You can find [more information here](https://www.3scale.net/api-management/monetize/) about API monetization. But for now, let's see how we can achieve the creation of application plans on the 3scale API Management portal:
@@ -72,7 +72,7 @@ We have now finished our configuration of application plans. Of course, you can 
 
 
 
-
+<a name="analytics"></a>
 ## Exploring API endpoints in API analytics
 
 A further beneficial consequence of having fine-grained API endpoint mappings is that we can also analyse each endpoint individually, understand how often a certain endpoint is called, from what app, what error codes are returned when, and a lot more. 
@@ -86,9 +86,11 @@ If you define more method to API endpoint mappings as described in the first sec
 
 API analytics is another very powerful feature of API management. It gives an API provider full visibility about what is important to know for the organization. API analytics can also be set up for automatic reporting or alerts. With the intelligence gained from that API providers can make better decisions about the API strategy or in fact their digital strategy.  
 
+<a name="summary"></a>
 ## Summary of what we achieved
 In this part 3 of the workshop we covered how in 3scale methods can be created to make them onto API endpoints. This give us the power of managing and controlling APIs on a much more fine-grained and detailed level down to each individual endpoint. API analytics leverage that too giving us more insight about the actual usage of the API which informs future decision making. Finally, on top of the method to endpoint mapping an API provider can create different application plans that can be used to offer difference service levels to different API consumer segments.
 
+<a name="resources"></a>
 ## Further resources
 You can find a lot more detailed information about what you can do with 3scale’s rate limiting, analytics features, and application plans features on the [3scale Support](https://support.3scale.net/get-started/quickstarts/3scale-api-analytics) pages. 
 
