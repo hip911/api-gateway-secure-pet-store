@@ -24,7 +24,6 @@ In order to map those into 3scale follow these steps:
 2. On the main dashboard click the `API` tab. 
 3. Click `Integration` on the left hand side. This screen shows you the basic information about the integration with the Amazon API Gateway such as the base URL.
 4. Next click on `Application Plans` in the navigation pane on the left hand side, and then choose `Basic Plan` in the middle. 
-
 ![Basic App Plan](./img/part3-2-BasicAppPlan.png)
 5. On the next screen you can see the various configurable methods and metrics, which we later map onto API endpoints. Initially we have no method for the specific petstore endpoints. So, let's create some. Click on `New method`. 
 ![new method](./img/part3-3-new-method.png)
@@ -51,12 +50,26 @@ As a next step, we want to configure different application plans on top of our m
 
 ## Creating and configuring application plans
 
-[Application plans in 3scale](https://support.3scale.net/howtos/api-configuration#application-plans) define the different sets of access rights you might want to allow for consumers of your API. These can determine anything from rate limits, which methods or resources are accessible and which features are enabled. Let's see how we can achieve that on the 3scale API Management portal:
+[Application plans in 3scale](https://support.3scale.net/howtos/api-configuration#application-plans) define the different sets of access rights you might want to allow for consumers of your API. These can determine anything from rate limits, which methods or resources are accessible, which features are enabled and also let you define to charge for access to the API based on a business model that you choose. You can find [more information here](https://www.3scale.net/api-management/monetize/) about API monetization. But for now, let's see how we can achieve the creation of application plans on the 3scale API Management portal:
 
-1. Log in to your 3scale account. You’ll see a dashboard of the most important performance figures for your API.  
-2. Select the “API” tab from the navigation panel at the top. Then choose “Integration” on the left-hand side to start configuring your API management options.
-`TODO: screenshot`
-2. sdfsdf
+1. Log in to your 3scale account.  
+2. On the dashboard, select the `API` tab from the navigation panel at the top. 
+3. Then choose `Application Plans` on the bottom left-hand side. You will then see that there are two application plans pre-configured by default `Basic` and `Unlimited`.
+![application plans overview](./img/part3-7-application-plans.png)
+4. Click on the `Unlimited` application plan first to check it out. In the middle part you can see that both the two methods we configured earlier (`POST /pet` and `GET /store/inventory`) are both visible and enabled for this plan and there are no limits set. This means that a developer on this plan can call the API endpoints as often as s/he wants. Also this plan offers other services like 24/7 phone support etc.
+5. Now let's check and configure the `Basic` plan. Go back to the overview of the plans and click on `Basic`.
+6. You will see that the features at the bottom like 24/7 phone support are all disabled. But the accessibility of methods at the top are the same as for the `Unlimited` plan. But we want to have different plans in order to provide different services to different API consumer segments and maybe even charge for the higher value `Unlimited` plan. So let's change this.
+7. First, on the `Basic` plan we don't want API consumer give access to the `POST /pet` endpoint to prevent them from creating new pet resource. For that, just uncheck the tick in the `Enabled` column and also make it invisible in the `Visible` column. 
+8. Next we want to limit the total number of API calls a consumer on that plan can execute. For that, click on `Limits` and then `New usage limit`.
+![limits](./img/part3-8-limits.png)
+9. On the next dialog you can choose the period (eg, day) and the max value (eg 5000).
+10. Click `Create usage limit`.
+11. And with that we have limited the number of total API calls allowed for an API consumer who has an app that is related to the `Basic` plan to 5000 per day. 
+
+We have now finished our configuration of application plans. Of course, you can also get rid of the default plans and/or add your custom plans to your 3scale API Management account. In part [Part 4](Part4--DevPortal.md) of this tutorial we will show how to expose application plans to developers via developer portals and let them sign up.
+
+
+
 
 ## Exploring API endpoints in API analytics
 
