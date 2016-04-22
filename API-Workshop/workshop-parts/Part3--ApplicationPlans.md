@@ -20,6 +20,7 @@ For the workshop we use the classic [petstore](http://petstore.swagger.io/) exam
 ![petstore swagger](./img/part3-2-petstore-swagger.png)
 
 In order to map those into 3scale follow these steps:
+
 1. Log in to your 3scale account.
 2. On the main dashboard click the `API` tab. 
 3. Click `Integration` on the left hand side. This screen shows you the basic information about the integration with the Amazon API Gateway such as the base URL.
