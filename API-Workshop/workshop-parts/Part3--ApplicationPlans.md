@@ -6,12 +6,13 @@
 In this part of the tutorial we show how to use the 3scale API Management platform to configure fine-grained API contracts using tiered application plans. 
 
 ## Table of Contents
-* Mapping API endpoints in 3scale
+* Mapping API endpoints in 3scale ([Jump to section](#mappings))
 * Creating and configuring application plans
 * Exploring API endpoints in API analytics
 * Summary of what we achieved
 * Further resources
 
+<a name="mappings"></a>
 ## Mapping API endpoints in 3scale
 After you have completed [Part 2](Part2--APImanagement.md) of this workshop, you have set up a basic connection between the Amazon API Gateway and the 3scale API Management platform for API call authorization and reporting. Now we want to fine-tune this and will start by mapping the various API endpoints into 3scale. The benefit of this is that you can then manage and control each endpoint individually.
 
@@ -74,23 +75,22 @@ We have now finished our configuration of application plans. Of course, you can 
 
 ## Exploring API endpoints in API analytics
 
+A further beneficial consequence of having fine-grained API endpoint mappings is that we can also analyse each endpoint individually, understand how often a certain endpoint is called, from what app, what error codes are returned when, and a lot more. 
+
+To see how that works, switch to the `Analytics` tab in your 3scale dashboard. 
+What you will see there at a first glance is the total number of API calls accumulated across all endpoints. On the right-hand side, you can drill down to get an accurate count of API calls against each endpoint. See below:
+
+![analytics](./img/part3-9-analytics.png)
+
+If you define more method to API endpoint mappings as described in the first section [above](#mappings) then you will see all these methods in the list on the right too, as indicated in the screenshot above.
+
+API analytics is another very powerful feature of API management. It gives an API provider full visibility about what is important to know for the organization. API analytics can also be set up for automatic reporting or alerts. With the intelligence gained from that API providers can make better decisions about the API strategy or in fact their digital strategy.  
+
 ## Summary of what we achieved
+In this part 3 of the workshop we covered how in 3scale methods can be created to make them onto API endpoints. This give us the power of managing and controlling APIs on a much more fine-grained and detailed level down to each individual endpoint. API analytics leverage that too giving us more insight about the actual usage of the API which informs future decision making. Finally, on top of the method to endpoint mapping an API provider can create different application plans that can be used to offer difference service levels to different API consumer segments.
 
 ## Further resources
 You can find a lot more detailed information about what you can do with 3scale’s rate limiting, analytics features, and application plans features on the [3scale Support](https://support.3scale.net/get-started/quickstarts/3scale-api-analytics) pages. 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 [Back to workshop overview](../README.md)
