@@ -38,7 +38,7 @@ The navigation pane on the left hand side shows the basic structure of the Web a
 
 You will see if you make smaller changes in the HTML or CSS and safe it, this will take immediately effect on your developer portal. There is a lot of stuff that you can do to customize the developer portal. We would like refer to our comprehensive developer portal guide on the [3scale Support pages](https://support.3scale.net/howtos/portal-configuration).
 
-The developer portal also exposes the various application plans that we configured earlier in [part 3]() of this tutorial.
+The developer portal also exposes the various application plans that we configured earlier in [part 3](Part3--ApplicationPlans.md) of this tutorial. With this developer onboarding and signup is fully supported.
 
 ![app plans on portal](./img/part4-2b-app-plans-on-portal.png)
 
@@ -59,6 +59,7 @@ Here is what you have to do to set it up:
 ![interactive API doc on portal](./img/part4-3-interactive-api-doc-portal.png)
 
 ## Summary of what we achieved
+In this final part of the workshop we showed how the API can be exposed to developers. This is a great tool for developer marketing and to increase the adoption of the API. We also showed the inclusion of the Swagger-based interactive API documentation. 
 
 ## Further resources
 For more information about how to modify and configure the developer portal, please refer to our comprehensive guide on the [3scale Support pages](https://support.3scale.net/howtos/portal-configuration).
@@ -68,3 +69,4 @@ For more information about how to modify and configure the developer portal, ple
 
 
 [Back to workshop overview](../README.md)
+
