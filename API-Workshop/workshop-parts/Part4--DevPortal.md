@@ -7,10 +7,10 @@ In this part of the tutorial we show how to use the 3scale API Management platfo
 
 ## Table of Contents
 * Short intro to 3scale developer portals ([Jump to section](#intro))
-* Basic configuration of developer portals
-* Configure interactive API documentation
-* Summary of what we achieved
-* Further resources
+* Basic configuration of developer portals ([Jump to section](#config))
+* Configure interactive API documentation ([Jump to section](#docu)) 
+* Summary of what we achieved ([Jump to section](#summary))
+* Further resources ([Jump to section](#res))
 
 <a name="intro"></a>
 ## Short intro to 3scale developer portals
@@ -24,7 +24,9 @@ The 3scale API Management platform includes a ready-made [developer portal](http
 * Developer onboarding (configurable sign-up processes)
 * App management and analytics for developers
 * Forums
- 
+
+
+<a name="config"></a> 
 ## Basic configuration of developer portals
 
 In order to configure the 3scale developer portal follow these steps:
@@ -40,9 +42,8 @@ You will see if you make smaller changes in the HTML or CSS and safe it, this wi
 
 The developer portal also exposes the various application plans that we configured earlier in [part 3](Part3--ApplicationPlans.md) of this tutorial. With this developer onboarding and signup is fully supported.
 
-![app plans on portal](./img/part4-2b-app-plans-on-portal.png)
 
-
+<a name="docu"></a>
 ## Configure interactive API documentation
 The 3scale developer portal offers an [interactive API documentation](https://www.3scale.net/api-management/interactive-api-documentation/) using Swagger-based API descriptions. Basically we can use the petstore's [swagger.json](http://petstore.swagger.io/v2/swagger.json) which we used throughout this workshop also to set up the interactive API documentation.
 
@@ -58,9 +59,11 @@ Here is what you have to do to set it up:
 7. And by the way this same Swagger-based interactive API documentation is also automatically exposed to your developer portal:
 ![interactive API doc on portal](./img/part4-3-interactive-api-doc-portal.png)
 
+<a name="summary"></a>
 ## Summary of what we achieved
 In this final part of the workshop we showed how the API can be exposed to developers. This is a great tool for developer marketing and to increase the adoption of the API. We also showed the inclusion of the Swagger-based interactive API documentation. 
 
+<a name="res"></a>
 ## Further resources
 For more information about how to modify and configure the developer portal, please refer to our comprehensive guide on the [3scale Support pages](https://support.3scale.net/howtos/portal-configuration).
 
