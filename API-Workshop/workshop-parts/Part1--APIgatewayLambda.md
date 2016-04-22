@@ -1,6 +1,6 @@
 [Back to workshop overview](../README.md)
 
-# Part 2
+# Part 1
 # Create and deploy an API using the Amazon API Gateway and AWS Lambda
 # (API Gateway Pet Store: Lab Guide)
 
