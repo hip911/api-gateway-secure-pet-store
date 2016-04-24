@@ -120,7 +120,7 @@ Point `0.0.0.0/0` to the NAT gateway you created earlier.
 7. Select the route table you just created on the route tables tab.
 
 And that's it for the VPC part.
-You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
+You now have a VPC, that's connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
 
 <a name="elasticache"></a>
