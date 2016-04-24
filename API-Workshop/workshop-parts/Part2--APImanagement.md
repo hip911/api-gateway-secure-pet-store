@@ -91,6 +91,7 @@ You should see the following result
 }
 ```
 This is what we will returned by our API endpoint.
+
 6. Finally deploy this endpoint using: `sls dash deploy`
 Select both the endpoint and the function.
 ![serverless dash deploy](./img/sls - dash deploy.png)
