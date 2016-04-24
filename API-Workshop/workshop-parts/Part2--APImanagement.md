@@ -225,7 +225,7 @@ Next, select both functions and then select deploy.
 
 ![](./img/sls_dash_deploy_functions.png)
 
-<a name="authorizer"></a>
+<a name="deploy"></a>
 ## 6) Add 3scale custom authorizer to Amazon API Gateway
 We are now going to add the custom authorizer functions we just deployed to our existing API on the Amazon API Gateway.
 
