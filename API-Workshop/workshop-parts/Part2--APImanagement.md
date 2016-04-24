@@ -201,9 +201,8 @@ You can find `YOUR_3SCALE_SERVICE_ID` under the `APIs` tab.
 For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the cluster you have created before. There you will see the endpoint URL.
 
 ![aws elasticache](./img/aws_elasticache_endpoint.png)
-
 3. In the `s-function.json` file for `authorizer` function you will see a `SNS_TOPIC_ARN` property. Leave it like it is for now, we will come back to it later.
-4. In the `s-function.json` you have a `vpc` section, too. Replace it with the security group and the subnets we have created before. The VPC section should look like this now:
+4. In the `s-function.json` you have a `vpc` section, too. Add your Security Group ID, which you can find in the `VPC` service in the navigation pane on the left under the `Security Groups` menu. Then add your Subnet ID, which you can find in the same navigation pane under `Subnets` menu and then choose the subnet which you created earlier for this tutorial. The VPC section should look like this now:
 
 	```
 	"vpc": {
@@ -213,9 +212,10 @@ For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the clu
 	```
 This part of the configuration assigns a VPC to the Lambda function, so it can communicate with Elasticache.
 
-Repeat those steps on `authrepSync` folder too.
 
-We are now done with the settings of our Lambda functions that represent the 3scale custom authorizer.
+Repeat the same steps for the `s-function.json` file in the `authrepSync` folder too.
+
+We are now done with the settings for our Lambda functions that represent the 3scale custom authorizer.
 
 Now finally, let's deploy these two Lambda functions using Serverless again:
 
