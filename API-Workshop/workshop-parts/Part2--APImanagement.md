@@ -140,8 +140,7 @@ Follow these steps:
 
 There is no more setup to do on the Elasticache cluster.
 
-Once the cluster is ready, go on the node
-created, and get the Endpoint URL. We will need it later on in the tutorial.
+Once the cluster is ready, go on the node created (in the `Nodes` column), and get the Endpoint URL. We will need it later on in the tutorial.
 
 <a name="lambda"></a>
 ## 5) Creating Lambda code for the custom authorizer
@@ -156,7 +155,6 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 	git clone https://github.com/picsoung/awsThreeScale_Authorizer
 	cd awsThreeScale_Authorizer
 	```
-
 2. In the `awsThreeScale_Authorizer` folder you will see two different folders, which represent the two Lambda function we are going to use:
     * `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
     * `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
