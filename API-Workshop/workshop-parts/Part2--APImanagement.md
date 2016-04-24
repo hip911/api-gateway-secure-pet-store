@@ -237,7 +237,7 @@ To do so follow these steps:
 4. Name it `threescale`.
 ![](./img/aws_new_authorizer.png)
 5. Choose the region where your Lambda has been deployed
-6. Look for and choose the authorizer function you have deployed earlier. (`sls-threeScale-Authorizer-authorizer`)
+6. For the `Lambda function` field, look for and choose the authorizer function you have deployed earlier. (Just start typing and it should appear: `sls-threeScale-Authorizer-authorizer`)
 7. Under `Identify token source` modify it to `method.request.header.apikey`. It means that we are expecting developers to make a call to our API with a header `apikey`, and we will use this key to authenticate the request.
 8. Finally change TTL to 0.
 
