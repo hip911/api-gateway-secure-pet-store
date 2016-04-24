@@ -249,9 +249,9 @@ Finally, we have to apply it to our API endpoints:
 
 1. Go to the `Resources` part of your API.
 2. Select a method, and click on the `method request` box.
-3. Change `Authorization` to the custom authorizer you have created before.
-4. Finally, save and re-deploy your API.
+3. Change `Authorization` to the `threescale` custom authorizer you have created before and save.
 ![](./img/aws_authorization_settings.png)
+4. Finally, re-deploy your API by clicking on the `Actions` button and then select `Deploy API` at the bottom.
 
 You would have to reproduce these steps on each endpoint of your API to make sure all your API is secured. But for now we can limit it to a single endpoint.
 
