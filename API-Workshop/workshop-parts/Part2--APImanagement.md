@@ -162,7 +162,7 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 
 Before deploying this to AWS we need to complete a few more tasks.
 
-1. Init serverless project with 
+1. Init serverless project in your project's root folder with 
 
 ```
 npm install
@@ -170,12 +170,12 @@ sls project init
 ```
 
 ![](./img/sls_project_init.png)
-2. In `awsThreeScale_Authorizer` folder and on each function folder run the `npm install` command. This will install all the NPM plugins needed.
+2. In addition run the `npm install` command on each function folder, i.e. in `authrepAsync` and `authorizer`. This will install all the NPM plugins needed.
 
 The logic of each Lambda function is kept in the `handler.js` file but we don't have to touch it. If you look at the code in this file you will see that we are using environment variables. So, let's set them up:
 
 1. Go to the `authorizer` folder
-2. Open the `s-function_example.js` file and rename it to `s-function.js`
+2. Open the `s-function_example.json` file and rename it to `s-function.json`
 3. Modify the placeholder with your own values under `environment` section.
 
 ```
