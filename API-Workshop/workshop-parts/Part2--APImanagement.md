@@ -155,6 +155,7 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 	git clone https://github.com/picsoung/awsThreeScale_Authorizer
 	cd awsThreeScale_Authorizer
 	```
+
 2. In the `awsThreeScale_Authorizer` folder you will see two different folders, which represent the two Lambda function we are going to use:
     * `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
     * `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
@@ -169,7 +170,6 @@ sls project init
 ```
 
 ![](./img/sls_project_init.png)
-
 2. In `awsThreeScale_Authorizer` folder and on each function folder run the `npm install` command. This will install all the NPM plugins needed.
 
 The logic of each Lambda function is kept in the `handler.js` file but we don't have to touch it. If you look at the code in this file you will see that we are using environment variables. So, let's set them up:
