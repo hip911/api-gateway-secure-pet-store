@@ -108,15 +108,13 @@ Our 3scale custom authorizer function will make calls to the 3scale API manageme
 
 If don't have a VPC, create one first and then follow these steps:
 
-1. Go to your AWS console under VPC service.
-3. Create a NAT gateway and connect it to one of your existing subnets.
-4. Create a new route table.
-5. Once the route table is created, edit the routes. 
-Point `0.0.0.0/0` to the NAT gateway you created earlier.
+1. Go to your AWS console to the VPC service.
+3. On the navigation pane on the left hand side choose `NAT Gateway` and click the button `Create NAT Gateway`. On the appearing dialog select one of the existing subnets, click the button `Create New EIP` and then `Create a NAT Gateway`.
+4. Go to `Route Tables` in the navigation pane and create a new route table. Then edit the routes to point `0.0.0.0/0` to the NAT gateway you created before.
 ![aws vpc route creation](./img/aws-vpc route table.png)
-6. Attach this rule to at least two subnets in your VPC. For this, select subnets that are not attached to the NAT gateway. Take a note of the IDs of these two subnets, you will need them later.
+6. Attach this new route table to at least two subnets in your VPC from the `Subnets` menu in the navigation pane. For this, select subnets that are not attached to the NAT gateway. Take a note of the IDs of these two subnets, you will need them later.
 ![aws vpc attach route table](./img/aws - subnet route table.png)
-7. Select the route table you just created on the route tables tab.
+7. Select the route table you just created on for each subnet in the `Route Table` tab.
 
 And that's it for the VPC part.
 You now have a VPC, that's connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
