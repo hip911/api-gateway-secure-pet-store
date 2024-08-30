@@ -42,7 +42,10 @@
             <version>2.3.1</version>
         </dependency>
     </dependencies>
-
+    <properties>
+        <sonar.organization>hip911</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
     <build>
         <resources>
             <resource>
