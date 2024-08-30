@@ -78,7 +78,7 @@ app.controller('PetsController', function($scope, $rootScope) {
   });
 
   $scope.submit = function() {
-    console.log("Submitting new pet:\n" + JSON.stringify($scope.pet));
+    console.log("Submitting new pet hello:\n" + JSON.stringify($scope.pet));
     var apigClient = apigClientFactory.newClient({
       accessKey: $rootScope.credentials.accessKey,
       secretKey: $rootScope.credentials.secretKey,
